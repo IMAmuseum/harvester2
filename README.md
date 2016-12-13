@@ -3,7 +3,7 @@
 ###Composer Setup
 ```json
     "require": {
-        "imamuseum/harvester2": "dev-master"
+        "imamuseum/harvester2": "1.0"
     },
 ```
 
