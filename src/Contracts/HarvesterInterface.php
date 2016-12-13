@@ -23,7 +23,7 @@ interface HarvesterInterface
     public function createOrUpdateTexts($source, $raw_objects_results);
     public function createOrUpdateLocations($source, $raw_objects_results);
     public function createOrUpdateDates($source, $raw_objects_results);
-    public function createOrUpdateImages($source, $raw_objects_results);
+    public function createOrUpdateAssets($source, $raw_objects_results);
 
     // public function createTypes();
     // public function createOrFindTerms($fields);

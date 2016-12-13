@@ -126,12 +126,12 @@ abstract class HarvesterAbstract
 
 
     /**
-     * Process each Dates per Object
+     * Process each Asset per Object
      * @author Daniel Keller
      */
-    public function createOrUpdateImages($source, $raw_objects_results)
+    public function createOrUpdateAssets($source, $raw_objects_results)
     {
-        dispatch(new \App\Jobs\InitializeImages($source, $raw_objects_results));
+        dispatch(new \App\Jobs\InitializeAssets($source, $raw_objects_results));
     }
 
     /**
