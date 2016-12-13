@@ -3,7 +3,7 @@
 ###Composer Setup
 ```json
     "require": {
-        "imamuseum/harvester": "^2.0"
+        "imamuseum/harvester2": "dev-master"
     },
 ```
 
@@ -33,9 +33,10 @@ Run Migrations -
 php artisan migrate
 ```
 
-Run an initial sync with fake data -
+Run to pull all objects and their relationships (relationships can be across multiple sources so its best to pull objects from all sources first and then pull relationships from all sources)
 ```sh
-php artisan harvest:collection --initial
+php artisan harvest:collection --all --source=your_db_source
+php artisan harvest:collection --relate source=your_db_source
 ```
 
 Push items off the queue -
@@ -44,10 +45,10 @@ php artisan queue:listen
 ```
 
 ### Artisan Commands
+update all objects in source that have changed since given time in config
 ```sh
-php artisan harvest:collection
-php artisan harvest:object
-php artisan harvest:maintain
+php artisan harvest:collection --source=your_db_source
+php artisan harvest:collection --source=your_db_source
 ```
 Use the --help flag after any command to view the available options with a description.
 
