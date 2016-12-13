@@ -45,7 +45,7 @@ php artisan queue:listen
 ```
 
 ### Artisan Commands
-update all objects in source that have changed since given time in config
+update all objects in source that have changed since given time period in config
 ```sh
 php artisan harvest:collection --source=your_db_source
 php artisan harvest:collection --source=your_db_source
