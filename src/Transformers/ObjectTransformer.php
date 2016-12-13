@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester\Transformers;
+namespace Imamuseum\Harvester2\Transformers;
 
 class ObjectTransformer
 {

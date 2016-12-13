@@ -1,14 +1,14 @@
 <?php
 
-namespace Imamuseum\Harvester\Console\Commands;
+namespace Imamuseum\Harvester2\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Imamuseum\Harvester\Contracts\HarvesterInterface;
-use Imamuseum\Harvester\Commands\HarvestImages;
-use Imamuseum\Harvester\Models\Object;
-use Imamuseum\Harvester\Models\Source;
-use Imamuseum\Harvester\Models\Asset;
+use Imamuseum\Harvester2\Contracts\HarvesterInterface;
+use Imamuseum\Harvester2\Commands\HarvestImages;
+use Imamuseum\Harvester2\Models\Object;
+use Imamuseum\Harvester2\Models\Source;
+use Imamuseum\Harvester2\Models\Asset;
 
 class HarvestCollectionCommand extends Command
 {

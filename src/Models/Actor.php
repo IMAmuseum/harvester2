@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester\Models;
+namespace Imamuseum\Harvester2\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,16 +10,16 @@ class Actor extends Model
 
     public function objects()
     {
-        return $this->belongsToMany('Imamuseum\Harvester\Models\Object')->withPivot('sequence', 'role');
+        return $this->belongsToMany('Imamuseum\Harvester2\Models\Object')->withPivot('sequence', 'role');
     }
 
     public function locations()
     {
-        return $this->belongsToMany('Imamuseum\Harvester\Models\Location');
+        return $this->belongsToMany('Imamuseum\Harvester2\Models\Location');
     }
 
     public function dates()
     {
-        return $this->belongsToMany('Imamuseum\Harvester\Models\Date');
+        return $this->belongsToMany('Imamuseum\Harvester2\Models\Date');
     }
 }

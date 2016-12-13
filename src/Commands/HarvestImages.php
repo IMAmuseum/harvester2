@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester\Commands;
+namespace Imamuseum\Harvester2\Commands;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Mail\Mailer;
@@ -11,10 +11,10 @@ use Jeremytubbs\Deepzoom\DeepzoomFactory;
 use Intervention\Image\ImageManager;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
-use Imamuseum\Harvester\Models\Object;
-use Imamuseum\Harvester\Models\Types\AssetType;
-use Imamuseum\Harvester\Models\Asset;
-use Imamuseum\Harvester\Models\Source;
+use Imamuseum\Harvester2\Models\Object;
+use Imamuseum\Harvester2\Models\Types\AssetType;
+use Imamuseum\Harvester2\Models\Asset;
+use Imamuseum\Harvester2\Models\Source;
 
 
 class HarvestImages extends Job implements ShouldQueue

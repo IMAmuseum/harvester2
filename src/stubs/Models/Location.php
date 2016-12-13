@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Imamuseum\Harvester\Models\Location as HarvesterLocation;
+use Imamuseum\Harvester2\Models\Location as HarvesterLocation;
 
 class Location extends HarvesterLocation
 {

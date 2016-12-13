@@ -1,10 +1,10 @@
 <?php
 
-namespace Imamuseum\Harvester\Jobs;
+namespace Imamuseum\Harvester2\Jobs;
 
 use DB;
 use Exception;
-use Imamuseum\Harvester\Jobs\InitializeJob;
+use Imamuseum\Harvester2\Jobs\InitializeJob;
 use Log;
 
 use Illuminate\Queue\InteractsWithQueue;

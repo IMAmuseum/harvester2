@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester;
+namespace Imamuseum\Harvester2;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -50,9 +50,9 @@ class HarvesterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->commands([
-            'Imamuseum\Harvester\Console\Commands\HarvestCollectionCommand',
-            'Imamuseum\Harvester\Console\Commands\HarvestObjectCommand',
-            'Imamuseum\Harvester\Console\Commands\HarvestMaintainCommand'
+            'Imamuseum\Harvester2\Console\Commands\HarvestCollectionCommand',
+            'Imamuseum\Harvester2\Console\Commands\HarvestObjectCommand',
+            'Imamuseum\Harvester2\Console\Commands\HarvestMaintainCommand'
         ]);
     }
 }

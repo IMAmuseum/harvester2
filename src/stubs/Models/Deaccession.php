@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Imamuseum\Harvester\Models\Deaccession as HarvesterDeaccession;
+use Imamuseum\Harvester2\Models\Deaccession as HarvesterDeaccession;
 
 class Deaccession extends HarvesterDeaccession
 {

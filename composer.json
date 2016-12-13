@@ -1,6 +1,6 @@
 {
-    "name": "imamuseum/harvester",
-    "description": "Online collection data harvester middleware.",
+    "name": "imamuseum/harvester2",
+    "description": "Second version of Online collection data harvester middleware.",
     "license": "MIT",
     "authors" : [
         {
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Imamuseum\\Harvester\\": "src/"
+            "Imamuseum\\Harvester2\\": "src/"
         }
     },
     "require": {

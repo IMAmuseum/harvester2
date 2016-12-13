@@ -1,11 +1,11 @@
 <?php
 
-namespace Imamuseum\Harvester\Jobs;
+namespace Imamuseum\Harvester2\Jobs;
 
 use DB;
-use Imamuseum\Harvester\Jobs\InitializeJob;
+use Imamuseum\Harvester2\Jobs\InitializeJob;
 
-use Imamuseum\Harvester\Models\Object;
+use Imamuseum\Harvester2\Models\Object;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

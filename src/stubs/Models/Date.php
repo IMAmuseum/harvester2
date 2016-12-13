@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Imamuseum\Harvester\Models\Date as HarvesterDate;
+use Imamuseum\Harvester2\Models\Date as HarvesterDate;
 
 class Date extends HarvesterDate
 {

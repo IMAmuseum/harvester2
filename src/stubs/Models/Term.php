@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Imamuseum\Harvester\Models\Term as HarvesterTerm;
+use Imamuseum\Harvester2\Models\Term as HarvesterTerm;
 
 class Term extends HarvesterTerm
 {

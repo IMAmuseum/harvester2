@@ -1,10 +1,10 @@
 <?php
 
-namespace Imamuseum\Harvester\Contracts;
+namespace Imamuseum\Harvester2\Contracts;
 
 /**
  * Interface HarvesterInterface
- * @package Imamuseum\Harvester
+ * @package Imamuseum\Harvester2
  */
 interface HarvesterInterface
 {

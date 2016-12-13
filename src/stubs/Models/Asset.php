@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Imamuseum\Harvester\Models\Asset as HarvesterAsset;
+use Imamuseum\Harvester2\Models\Asset as HarvesterAsset;
 
 class Asset extends HarvesterAsset
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Imamuseum\Harvester;
+namespace Imamuseum\Harvester2;
 
-use Imamuseum\Harvester\Contracts\HarvesterInterface;
-use Imamuseum\Harvester\Contracts\HarvesterAbstract;
-use Imamuseum\Harvester\Models\Object;
+use Imamuseum\Harvester2\Contracts\HarvesterInterface;
+use Imamuseum\Harvester2\Contracts\HarvesterAbstract;
+use Imamuseum\Harvester2\Models\Object;
 
 /**
  * Class Example Harvester
- * @package Imamuseum\Harvesters
+ * @package Imamuseum\Harvester2s
  */
 class ExampleHarvester extends HarvesterAbstract implements HarvesterInterface
 {

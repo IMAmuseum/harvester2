@@ -1,10 +1,10 @@
 <?php
 
-namespace Imamuseum\Harvester\Contracts;
+namespace Imamuseum\Harvester2\Contracts;
 
-use Imamuseum\Harvester\Models\Object;
-use Imamuseum\Harvester\Models\Asset;
-use Imamuseum\Harvester\Models\Source;
+use Imamuseum\Harvester2\Models\Object;
+use Imamuseum\Harvester2\Models\Asset;
+use Imamuseum\Harvester2\Models\Source;
 
 /**
  * This is a bit of a middle man
@@ -76,7 +76,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateObjects($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeObjects($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeObjects($source, $raw_objects_results));
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateTerms($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeTerms($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeTerms($source, $raw_objects_results));
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateActors($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeActors($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeActors($source, $raw_objects_results));
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateTexts($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeTexts($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeTexts($source, $raw_objects_results));
     }
 
     /**
@@ -112,7 +112,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateLocations($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeLocations($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeLocations($source, $raw_objects_results));
     }
 
     /**
@@ -121,7 +121,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateDates($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeDates($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeDates($source, $raw_objects_results));
     }
 
 
@@ -131,7 +131,7 @@ abstract class HarvesterAbstract
      */
     public function createOrUpdateAssets($source, $raw_objects_results)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeAssets($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeAssets($source, $raw_objects_results));
     }
 
     /**
@@ -140,6 +140,6 @@ abstract class HarvesterAbstract
      */
     public function initialOrUpdateRelations($source, $ids)
     {
-        dispatch(new \Imamuseum\Harvester\Jobs\InitializeRelated($source, $raw_objects_results));
+        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeRelated($source, $raw_objects_results));
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Imamuseum\Harvester\Jobs;
+namespace Imamuseum\Harvester2\Jobs;
 
 use App\Jobs\Job;
 use Exception;
 use Carbon\Carbon;
 use DB;
-use Imamuseum\Harvester\Models\Object;
+use Imamuseum\Harvester2\Models\Object;
 
 abstract class InitializeJob extends Job
 {

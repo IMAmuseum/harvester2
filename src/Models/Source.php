@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester\Models;
+namespace Imamuseum\Harvester2\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,12 +10,12 @@ class Source extends Model
 
     public function object()
     {
-    	return $this->hasOne('Imamuseum\Harvester\Models\Object');
+    	return $this->hasOne('Imamuseum\Harvester2\Models\Object');
     }
 
     public function assets()
     {
-    	return $this->hasMany('Imamuseum\Harvester\Models\Asset');
+    	return $this->hasMany('Imamuseum\Harvester2\Models\Asset');
     }
 
 }

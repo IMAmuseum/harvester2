@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Imamuseum\Harvester\Models\Actor as HarvesterActor;
+use Imamuseum\Harvester2\Models\Actor as HarvesterActor;
 
 class Actor extends HarvesterActor
 {
