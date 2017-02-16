@@ -31,20 +31,31 @@ class InitializeActors extends InitializeJob implements ShouldQueue
         $sync = [];
         foreach (json_decode($object->actors) as $actor) {
 
+            // If no unique id, generate it from source, model and sequence
+            $actor_uid = isset($actor->actor_uid) ? $actor->actor_uid : $this->source . ':' . $model->id . ':' . $actor->sequence;
+
             // actors are unique and shared between objects
             $id = DB::table('actors')
-                ->where('actor_name_display', $actor->actor_name_display)
+                ->where('actor_uid', $actor_uid)
                 ->value('id');
 
+            // If actor doesn't exist create it
+            // else update it
             if (!$id) {
-                $actor_uid = isset($actor->actor_uid) ? $actor->actor_uid : $this->source . ':' . $model->id . ':' . $actor->sequence;
-
                 $id = DB::table('actors')->insertGetId([
                     'actor_uid' => $actor_uid,
                     'actor_name_display' => $actor->actor_name_display,
                     'created_at' => $this->now(),
                     'updated_at' => $this->now()
                 ]);
+            } else {
+                DB::table('actors')
+                    ->where('id', $id)
+                    ->update([
+                        'actor_name_display' => $actor->actor_name_display,
+                        'created_at' => $this->now(),
+                        'updated_at' => $this->now()
+                    ]);
             }
 
             $sync[$id] = [
