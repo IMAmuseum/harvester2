@@ -71,8 +71,10 @@ class HarvestCollectionCommand extends Command
         $deleted_ids = $this->harvester->deleteOldObjects($source);
         if ($deleted_ids) {
             $this->info('Deleted '.count($deleted_ids).' from harvest database.');
+            logger('Deleted '.count($deleted_ids).' from harvest database.');
         } else {
             $this->info('No objects deleted from harvest database.');
+            logger('No objects deleted from harvest database.');
         }
 
         // Fetch Object ids from source that need to be updated
@@ -97,18 +99,22 @@ class HarvestCollectionCommand extends Command
                 // Harvest Object Relationships
                 if ($this->option('relate')) {
                     $this->info('Harvesting object relationships.');
+                    logger('Harvesting object relationships.');
                     $this->harvester->initialOrUpdateRelations($source, $ids->results);
                 } else {
                     // Update/Initialize the Harvest database
                     $this->info('Harvesting objects.');
+                    logger('Harvesting objects.');
                     $this->harvester->initialOrUpdateObject($source, $ids->results);
                 }
 
                 $start += $limit;
                 $total += $ids->total;
                 $this->info("$total Loaded so far.");
+                logger("$total Loaded so far.");
             } else {
                 $this->info('No more objects to update.');
+                logger('No more objects to update.');
             }
 
         } while (!empty($ids->results) && !$only_id);
