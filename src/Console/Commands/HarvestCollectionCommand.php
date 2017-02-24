@@ -111,10 +111,8 @@ class HarvestCollectionCommand extends Command
                 $start += $limit;
                 $total += $ids->total;
                 $this->info("$total Loaded so far.");
-                logger("$total Loaded so far.");
             } else {
                 $this->info('No more objects to update.');
-                logger('No more objects to update.');
             }
 
         } while (!empty($ids->results) && !$only_id);
