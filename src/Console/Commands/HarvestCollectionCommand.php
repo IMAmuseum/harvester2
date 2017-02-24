@@ -67,6 +67,9 @@ class HarvestCollectionCommand extends Command
             throw new Exception('No source was specified.');
         }
 
+        $this->info("Harvesting from $source");
+        logger("Harvesting from $source");
+
         // Delete old objects no longer in source
         $deleted_ids = $this->harvester->deleteOldObjects($source);
         if ($deleted_ids) {
