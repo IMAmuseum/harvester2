@@ -67,12 +67,17 @@ class HarvestCollectionCommand extends Command
             throw new Exception('No source was specified.');
         }
 
+        $this->info("Harvesting from $source");
+        logger("Harvesting from $source");
+
         // Delete old objects no longer in source
         $deleted_ids = $this->harvester->deleteOldObjects($source);
         if ($deleted_ids) {
             $this->info('Deleted '.count($deleted_ids).' from harvest database.');
+            logger('Deleted '.count($deleted_ids).' from harvest database.');
         } else {
             $this->info('No objects deleted from harvest database.');
+            logger('No objects deleted from harvest database.');
         }
 
         // Fetch Object ids from source that need to be updated
@@ -97,10 +102,12 @@ class HarvestCollectionCommand extends Command
                 // Harvest Object Relationships
                 if ($this->option('relate')) {
                     $this->info('Harvesting object relationships.');
+                    logger('Harvesting object relationships.');
                     $this->harvester->initialOrUpdateRelations($source, $ids->results);
                 } else {
                     // Update/Initialize the Harvest database
                     $this->info('Harvesting objects.');
+                    logger('Harvesting objects.');
                     $this->harvester->initialOrUpdateObject($source, $ids->results);
                 }
 
