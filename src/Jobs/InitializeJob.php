@@ -43,7 +43,11 @@ abstract class InitializeJob extends Job
 
         // Transaction can produce 15x faster results with Sqlite
         DB::transaction(function () {
-            $this->processObjects();
+           // Set deadlock timeout to one minute (sqlite will wait up to a minute for database lock to be released) 
+	   // This is the default setting with php pdo sqlite2 but with sqlite3 we must set it manually. 
+	   $pdo = DB::connection(config('proficio.database_connection'))->getPdo();
+           $pdo->setAttribute($pdo::ATTR_TIMEOUT, 60000); 
+	   $this->processObjects();
         });
     }
 
