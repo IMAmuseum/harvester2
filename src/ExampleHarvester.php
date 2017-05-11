@@ -1,79 +1,33 @@
 <?php
 
-namespace Imamuseum\Harvester2;
+namespace App\Harvesters;
 
-use Imamuseum\Harvester2\Contracts\HarvesterInterface;
+use DB;
+use Schema;
+use Exception;
+use Illuminate\Database\Schema\Blueprint;
+use App\Harvesters\MyCustomTransformer;
+
+use Imamuseum\Harvester2\Contracts\DocumentStoreInterface;
 use Imamuseum\Harvester2\Contracts\HarvesterAbstract;
-use Imamuseum\Harvester2\Models\Object;
+use Imamuseum\Harvester2\Sources\ProficioSource;
 
 /**
- * Class Example Harvester
- * @package Imamuseum\Harvester2s
+ * Class Mariners Harvester
  */
-class ExampleHarvester extends HarvesterAbstract implements HarvesterInterface
+class MarinersHarvester extends HarvesterAbstract
 {
-    public function getAllIDs($source = null)
+    use \Illuminate\Foundation\Bus\DispatchesJobs;
+    use SqliteFunctions;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(DocumentStoreInterface $store)
     {
-        // do something to get all object ids
-        // return $objectIDs;
-        $objectIDs = ['results' => ['100', '200', '300'], 'total' => '3'];
-        return (object) $objectIDs;
-    }
-
-    public function getUpdateIDs($source = null)
-    {
-        // do something to get all updated object ids
-        // return $objectIDs;
-        $objectIDs = ['results' => ['1000', '2000', '3000'], 'total' => '3'];
-        return (object) $objectIDs;
-    }
-
-    public function getObject($uid, $source = null)
-    {
-        return \Faker\Factory::create();
-    }
-
-    public function initialOrUpdateObject($uid, $source = null)
-    {
-        $faker = $this->getObject($uid, $source);
-        // get all data for a specific object $results
-        // find object
-        $object = Object::firstOrNew(['object_uid' => $uid]);
-        // add data to object
-        $object->object_title = $faker->catchPhrase;
-        // save object
-        $object->save();
-
-        // sync - terms, dates, locations, and texts
-        $terms = [
-            'medium' => $faker->words($nb = 3),
-        ];
-        $termIDs = $this->createOrFindTerms($terms);
-        if ($termIDs) $object->terms()->sync($termIDs);
-
-        $dates = [
-            'year' => [
-                'date' => $faker->year($max = 'now'),
-                'date_at' => $faker->dateTime()
-            ]
-        ];
-        $dateIDs = $this->createOrFindDates($dates);
-        if ($dateIDs) $object->dates()->sync($dateIDs);
-
-        $locations = [
-                'building' => [
-                     'location' => $faker->streetName,
-                     'latitude' => $faker->latitude,
-                     'longitude' => $faker->longitude
-                ]
-            ];
-        $locationIDs = $this->createOrFindLocations($locations);
-        $object->locations()->sync($locationIDs);
-
-        $texts = [
-            'attribution' => $faker->paragraph($nbSentences = 3)
-        ];
-        $this->createOrUpdateTexts($object->id, $texts);
-        // push images onto queue for processing
+        parent::__construct($store);
+        $this->sources['archival_collection'] = new ProficioSource(new MyCustomTransformer('archival_collection'));
     }
 }
