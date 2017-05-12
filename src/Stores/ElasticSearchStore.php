@@ -73,10 +73,11 @@ class ElasticSearchStore implements DocumentStoreInterface
     public function compareIdsBySource(SourceInterface $source, $start = 0, $limit = 10000)
     {
         $elasticsearch = $this->build();
+        $elasticsearch_ids = [];
+        $source_ids = [];
 
         // Get all source ids
         // Paginate to prevent hitting memory limit
-        $source_ids = [];
         do {
             $tmp = $source->getAllObjectIds($start, $limit);
             $source_ids = array_merge($source_ids, $tmp);

@@ -46,7 +46,7 @@ class DeleteOldObjects extends Job implements ShouldQueue
      */
     public function handle()
     {
-        logger("Delete Old Objects from".$this->source_name."...");
+        logger("Delete Old Objects from ".$this->source_name."...");
 
         if ($this->id) {
             $delete_ids = [$this->id];
