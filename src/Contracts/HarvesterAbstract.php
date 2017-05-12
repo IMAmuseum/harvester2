@@ -2,144 +2,101 @@
 
 namespace Imamuseum\Harvester2\Contracts;
 
-use Imamuseum\Harvester2\Models\Object;
-use Imamuseum\Harvester2\Models\Asset;
-use Imamuseum\Harvester2\Models\Source;
+use Imamuseum\Harvester2\Contracts\HarvesterInterface;
+use Imamuseum\Harvester2\Contracts\SourceInterface;
+use Imamuseum\Harvester2\Contracts\DocumentStoreInterface;
 
-/**
- * This is a bit of a middle man
- */
-abstract class HarvesterAbstract
+abstract class HarvesterAbstract implements HarvesterInterface
 {
-    public function createTypes()
+
+    /**
+     * @var sources
+     */
+    protected $sources;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(DocumentStoreInterface $store)
     {
-        // get config array for harvester types
-        $configTypes = config('harvester.types');
-        // loop through types and insert
-        foreach ($configTypes as $keyType => $valueType) {
-            foreach($valueType as $type) {
-                $typeModel = $keyType . "_types";
-                $typeName = $keyType . "_type_name";
-                $typeDesc = $keyType . "_type_desc";
-                \DB::table($typeModel)->insert([
-                    $typeName => $type['name'],
-                    $typeDesc =>  $type['desc']
-                ]);
+        $this->store = $store;
+        $this->sources = [];
+        $this->config = config('harvester');
+    }
+
+    /**
+     * Delete objects no longer found in source
+     * @param $id  object id to delete if old
+     * @author Daniel Keller
+     */
+    public function deleteOldObjects($source = null, $id = null)
+    {
+        // If source is provided delete from given source only
+        $sources = $this->sources;
+        if ($source) {
+            if (!$this->sources[$source]) {
+                throw new Exception("Source $source does not exist");
             }
+
+            $sources = [];
+            $sources[$source] = $this->sources[$source];
+        }
+
+        // delete from sources
+        foreach ($sources as $name => $source) {
+            dispatch(new \Imamuseum\Harvester2\Jobs\DeleteOldObjects($source, $this->store, $id, $name));
         }
     }
 
-    public function deleteOldObjects($source)
+    /**
+     * Insert/update objects from source to store
+     * @param $source  Source of objects to insert/update
+     * @param $id      object id to insert/update
+     * @param $ignore_since  should all objects be updated insert/update
+     * @author Daniel Keller
+     */
+    public function updateObjects($source = null, $id = null, $ignore_since = false)
     {
-        // Get objects no longer in the source.
-        // These will be deleted from the harvester database
-        $start = 0;
-        $limit = 10000;
-        $removed_ids = [];
-        $to_delete = \DB::table('objects')->where('collection', $source)->pluck('object_uid');
-
-        // incrementally remove ids that don't need to be deleted
-        // We paginate this process to prevent hitting a memory limit
-        do {
-            $import_uids = $this->getAllIDs($source, $start, $limit);
-            $to_delete = array_diff($to_delete, $import_uids->results);
-            $start += $limit;
-
-        } while (!empty($import_uids->results));
-
-
-        // Delete the objects
-        if (!empty($to_delete)) {
-            // Get the harvest ids of the objects to be deleted
-            $removed_ids = \DB::table('objects')->whereIn('object_uid', $to_delete)->pluck('id');
-
-            // Delete the objects
-            foreach ($to_delete as $object_uid) {
-                $object = Object::where('collection', $source)
-                    ->where('object_uid', '=', $object_uid)
-                    ->first();
-
-                Source::where('object_id', '=', $object->id)->delete();
-                Asset::where('object_id', '=', $object->id)->delete();
-
-                $object->delete();
+        // If source is provided update from given source only
+        $sources = $this->sources;
+        if ($source) {
+            if (!$this->sources[$source]) {
+                throw new Exception("Source $source does not exist");
             }
+
+            $sources = [];
+            $sources[$source] = $this->sources[$source];
         }
 
-        return $removed_ids;
-    }
+        // update from sources
+        foreach ($sources as $name => $source) {
+            // Get new object ids to insert
+            $offset = 0;
 
+            // If ignore_since is provided process ignore_since source results (ignore $since)
+            $since = $this->config['since'];
+            if (!$ignore_since || $source->shouldParseAll()) {
+                $since = null;
+            }
 
-    /**
-     * Process each object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateObjects($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeObjects($source, $raw_objects_results));
-    }
+            while (true) {
+                $results = $source->queryObjects($offset, $since, $id);
+                $offset = $results['offset'];
 
-    /**
-     * Process each Term per Object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateTerms($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeTerms($source, $raw_objects_results));
-    }
+                if (!$results['raw']) {
+                    break;
+                }
 
-    /**
-     * Process each Actor per Object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateActors($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeActors($source, $raw_objects_results));
-    }
-
-    /**
-     * Process each Texts per Object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateTexts($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeTexts($source, $raw_objects_results));
-    }
-
-    /**
-     * Process each Locations per Object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateLocations($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeLocations($source, $raw_objects_results));
-    }
-
-    /**
-     * Process each Dates per Object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateDates($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeDates($source, $raw_objects_results));
-    }
-
-
-    /**
-     * Process each Asset per Object
-     * @author Daniel Keller
-     */
-    public function createOrUpdateAssets($source, $raw_objects_results)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeAssets($source, $raw_objects_results));
-    }
-
-    /**
-     * Process each Relation per Object based on proficio config
-     * @author Daniel Keller
-     */
-    public function initialOrUpdateRelations($source, $ids)
-    {
-        dispatch(new \Imamuseum\Harvester2\Jobs\InitializeRelated($source, $raw_objects_results));
+                dispatch(new \Imamuseum\Harvester2\Jobs\IndexUpdateObjects(
+                    $source,
+                    $this->store,
+                    $results['raw'],
+                    $name,
+                    $offset
+                ));
+            }
+        }
     }
 }
