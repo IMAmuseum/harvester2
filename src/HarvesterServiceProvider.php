@@ -37,6 +37,9 @@ class HarvesterServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Default Document store is ElasticSearch
+        $this->app->bind('Imamuseum\Harvester2\Contracts\DocumentStoreInterface', 'Imamuseum\Harvester2\Stores\ElasticSearchStore');
+
         $this->commands([
             'Imamuseum\Harvester2\Console\Commands\Harvest',
             'Imamuseum\Harvester2\Console\Commands\CreateIndex',
