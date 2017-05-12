@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester2\Commands;
+namespace Imamuseum\Harvester2\Console\Commands;
 
 
 use Exception;
