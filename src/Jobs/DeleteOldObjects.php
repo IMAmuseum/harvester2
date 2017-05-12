@@ -4,7 +4,7 @@ namespace Imamuseum\Harvester2\Jobs;
 
 use DB;
 use Exception;
-use Imamuseum\Harvester2\Jobs\InitializeJob;
+use App\Jobs\Job;
 use Imamuseum\Harvester2\Contracts\SourceInterface;
 use Imamuseum\Harvester2\Contracts\DocumentStoreInterface;
 
@@ -13,7 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 
 
-class DeleteOldObjects extends InitializeJob implements ShouldQueue
+class DeleteOldObjects extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
