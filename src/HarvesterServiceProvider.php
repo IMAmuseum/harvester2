@@ -39,6 +39,7 @@ class HarvesterServiceProvider extends ServiceProvider
     {
         $this->commands([
             'Imamuseum\Harvester2\Console\Commands\Harvest',
+            'Imamuseum\Harvester2\Console\Commands\CreateIndex',
         ]);
     }
 }

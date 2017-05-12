@@ -41,6 +41,7 @@ php artisan queue:listen
 ### Artisan Commands
 ```sh
 php artisan harvest - Runs sync
+php artisan create-index - Re-Creates document Store indices according to config
 ```
 Use the --help flag after any command to view the available options with a description.
 
