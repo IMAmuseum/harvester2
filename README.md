@@ -3,7 +3,7 @@
 ###Composer Setup
 ```json
     "require": {
-        "imamuseum/harvester2": "^2.0"
+        "imamuseum/harvester2": ""
     },
 ```
 
@@ -33,11 +33,6 @@ Run Migrations -
 php artisan migrate
 ```
 
-Run an initial sync with fake data -
-```sh
-php artisan harvest:collection --initial
-```
-
 Push items off the queue -
 ```sh
 php artisan queue:listen
@@ -45,9 +40,7 @@ php artisan queue:listen
 
 ### Artisan Commands
 ```sh
-php artisan harvest:collection
-php artisan harvest:object
-php artisan harvest:maintain
+php artisan harvest - Runs sync
 ```
 Use the --help flag after any command to view the available options with a description.
 
