@@ -1,6 +1,6 @@
 <?php
 
-namespace Imamuseum\Harvester2\Store;
+namespace Imamuseum\Harvester2\Stores;
 
 use Exception;
 use Elasticsearch\ClientBuilder as Elasticsearch;
