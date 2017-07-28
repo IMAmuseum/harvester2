@@ -54,10 +54,10 @@ abstract class HarvesterAbstract implements HarvesterInterface
      * Insert/update objects from source to store
      * @param $source  Source of objects to insert/update
      * @param $id      object id to insert/update
-     * @param $ignore_since  should all objects be updated insert/update
+     * @param $only_recent  Only insert/update objects that have been changed recently
      * @author Daniel Keller
      */
-    public function updateObjects($source = null, $id = null, $ignore_since = false)
+    public function updateObjects($source = null, $id = null, $only_recent = true)
     {
         // If source is provided update from given source only
         $sources = $this->sources;
@@ -77,7 +77,7 @@ abstract class HarvesterAbstract implements HarvesterInterface
 
             // If ignore_since is provided process ignore_since source results (ignore $since)
             $since = $this->config['since'];
-            if (!$ignore_since || $source->shouldParseAll()) {
+            if (!$only_recent || $source->shouldParseAll()) {
                 $since = null;
             }
 
