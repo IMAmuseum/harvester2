@@ -9,5 +9,5 @@ namespace Imamuseum\Harvester2\Contracts;
 interface HarvesterInterface
 {
     public function deleteOldObjects($source = null, $id = null);
-    public function updateObjects($source = null, $all = false);
+    public function updateObjects($source = null, $id = null, $only_recent = false);
 }
