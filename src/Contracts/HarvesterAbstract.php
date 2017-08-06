@@ -46,7 +46,8 @@ abstract class HarvesterAbstract implements HarvesterInterface
 
         // delete from sources
         foreach ($sources as $name => $source) {
-            dispatch(new \Imamuseum\Harvester2\Jobs\DeleteOldObjects($source, $this->store, $id, $name))->onQueue('high');
+            $job = new \Imamuseum\Harvester2\Jobs\DeleteOldObjects($source, $this->store, $id, $name);
+            dispatch($job->onQueue('high'));
         }
     }
 
