@@ -55,9 +55,9 @@ class Harvest extends Command
         }
 
         // Delete Old Objects
-        $harvester->deleteOldObjects($source, $id);
+        $harvester->deleteOldObjects($source, $id)->onQueue('high');
 
         // Index/Update Objects
-        $harvester->updateObjects($source, $id, $recent);
+        $harvester->updateObjects($source, $id, $recent)->onQueue('low');
     }
 }
