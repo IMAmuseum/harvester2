@@ -75,7 +75,7 @@ abstract class HarvesterAbstract implements HarvesterInterface
             // Get new object ids to insert
             $offset = 0;
 
-            // If ignore_since is provided process ignore_since source results (ignore $since)
+            // If only_recent is false or shouldParseAll returns true process all source results (ignore $since)
             $since = $this->config['since'];
             if (!$only_recent || $source->shouldParseAll()) {
                 $since = null;
