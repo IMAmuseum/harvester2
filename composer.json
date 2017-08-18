@@ -1,6 +1,6 @@
 {
     "name": "imamuseum/harvester2",
-    "description": "Second version of Online collection data harvester middleware.",
+    "description": "Second version of Online collection data harvester.",
     "license": "MIT",
     "authors" : [
         {
@@ -16,6 +16,7 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "laravel/laravel": ">=5.2.0",
         "illuminate/support": "5.2.*"
     },
     "minimum-stability" : "stable",
