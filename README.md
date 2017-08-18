@@ -28,23 +28,14 @@ php artisan vendor:publish
 
 ```
 
-If you want to store Create failed jobs queue
-```sh
-php artisan queue:failed-table
-```
-
-Run Migrations -
-```sh
-php artisan migrate
-```
-
-Push items off the queue 
-Be sure to configure your queue and create a failed jobs table in your database.
-I suggest using an sqlite database if you are only going to use it for the failed jobs table.
-https://laravel.com/docs/master/queues
+Push items off the queue
 ```sh
 php artisan queue:listen
 ```
+
+Be sure to configure your queue and create a failed jobs table in your database.
+I suggest using an sqlite database if you are only going to use it for the failed jobs table.
+https://laravel.com/docs/master/queues
 
 ### Artisan Commands
 ```sh
