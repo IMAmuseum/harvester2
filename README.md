@@ -29,13 +29,17 @@ php artisan vendor:publish
 ```
 
 Push items off the queue
+Harvester 2 pushes delete jobs onto a queue named "high" and update jobs onto the default queue. 
+This allows the user to define a high and low priority queue to insure delete jobs are run before update jobs.
 ```sh
 php artisan queue:listen
+php artisan queue:listen --queue=high,low - prioritize "high" queue then "low" queue (or "default" or whatever you name your other queues)
 ```
 
-Be sure to configure your queue and create a failed jobs table in your database.
-I suggest using an sqlite database if you are only going to use it for the failed jobs table.
-https://laravel.com/docs/master/queues
+Harvester2 has the flexibility to work with any queue and any document store.
+At the moment ElasticSearch is the only Document Store that has been implemented.
+Personally I suggest using Redis as a queue as it plays well with Laravel. 
+If you intend to use sqlite as a queue be sure to use an instance separate from any of your sources (if any of your sources are sqlite databases. The lack of concurrency may cause jobs to fail.
 
 ### Artisan Commands
 ```sh
