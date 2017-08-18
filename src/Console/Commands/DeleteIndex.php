@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Imamuseum\Harvester2\Contracts\DocumentStoreInterface;
 
-class CreateIndex extends Command
+class DeleteIndex extends Command
 {
     use \Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -15,15 +15,15 @@ class CreateIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'create-index
-                            {--index=null : index to create (if absent all indexes will be created)}';
+    protected $signature = 'delete-index
+                            {--index=null : index to delete (if absent all indexes will be deleted)}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create Indices in document store. If it exists delete and recreate.';
+    protected $description = 'Delete Indices in document store';
 
     /**
      * Create a new command instance.
@@ -44,12 +44,13 @@ class CreateIndex extends Command
     {
         $index = $this->option('index') == 'null' ? null : $this->option('index');
         if ($index) {
-            $message = "If the index $index already exists it will be deleted and re-created!";
+            $message = "You are about to delete document store index $index!";
         } else {
-            $message = 'All indices will be deleted and re-created!';
+            $message = 'You are about to delete all document store indices!';
         }
 
-        $store->deleteIndices($index);
-        $store->createIndices($index);
+        if ($this->confirm("$message Do you wish to continue?")) {
+            $store->deleteIndices($index);
+        }
     }
 }

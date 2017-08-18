@@ -28,6 +28,6 @@ class MarinersHarvester extends HarvesterAbstract
     public function __construct(DocumentStoreInterface $store)
     {
         parent::__construct($store);
-        $this->sources['archival_collection'] = new ProficioSource(new MyCustomTransformer('archival_collection'));
+        $this->sources['my_source_name'] = new ProficioSource(new MyCustomTransformer('my_source_name'));
     }
 }
