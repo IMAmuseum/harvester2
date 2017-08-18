@@ -28,22 +28,31 @@ php artisan vendor:publish
 
 ```
 
+If you want to store Create failed jobs queue
+```sh
+php artisan queue:failed-table
+```
+
 Run Migrations -
 ```sh
 php artisan migrate
 ```
 
-Push items off the queue -
+Push items off the queue 
+Be sure to configure your queue and create a failed jobs table in your database.
+I suggest using an sqlite database if you are only going to use it for the failed jobs table.
+https://laravel.com/docs/master/queues
 ```sh
 php artisan queue:listen
 ```
 
 ### Artisan Commands
 ```sh
-php artisan harvest - Runs sync
-php artisan create-index - Re-Creates document Store indices according to config
+php artisan create-index --index=optional - Re-Creates document Store indices according to config. Option to specify which index.
+php artisan harvest --source=optional - Runs sync. Option to specify source
 ```
 Use the --help flag after any command to view the available options with a description.
 
 ### License
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
