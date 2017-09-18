@@ -29,7 +29,7 @@ php artisan vendor:publish
 ```
 
 Push items off the queue
-Harvester 2 pushes delete jobs onto a queue named "high" and update jobs onto the default queue. 
+Harvester 2 pushes delete jobs onto a queue named "high" and update jobs onto the default queue.
 This allows the user to define a high and low priority queue to insure delete jobs are run before update jobs.
 ```sh
 php artisan queue:listen
@@ -38,7 +38,7 @@ php artisan queue:listen --queue=high,low - prioritize "high" queue then "low" q
 
 Harvester2 has the flexibility to work with any queue and any document store.
 At the moment ElasticSearch is the only Document Store that has been implemented.
-Personally I suggest using Redis as a queue as it plays well with Laravel. 
+Personally I suggest using Redis as a queue as it plays well with Laravel.
 If you intend to use sqlite as a queue be sure to use an instance separate from any of your sources (if any of your sources are sqlite databases. The lack of concurrency may cause jobs to fail.
 
 ### Artisan Commands
@@ -48,6 +48,15 @@ php artisan delete-index --index=optional - Deletes document Store indices accor
 php artisan harvest --source=optional --id=null --recent=false - Runs sync. Option to specify source, id, and whether to pull all or most recently changed data
 ```
 Use the --help flag after any command to view the available options with a description.
+
+### Supported Sources
+* Piction
+* Proficio
+* Generic API source
+* Generic Query source
+
+### Supported Document Stores
+* ElasticSearch 5.0
 
 ### License
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
