@@ -44,7 +44,8 @@ If you intend to use sqlite as a queue be sure to use an instance separate from 
 ### Artisan Commands
 ```sh
 php artisan create-index --index=optional - Re-Creates document Store indices according to config. Option to specify which index.
-php artisan harvest --source=optional - Runs sync. Option to specify source
+php artisan delete-index --index=optional - Deletes document Store indices according to config. Option to specify which index.
+php artisan harvest --source=optional --id=null --recent=false - Runs sync. Option to specify source, id, and whether to pull all or most recently changed data
 ```
 Use the --help flag after any command to view the available options with a description.
 
