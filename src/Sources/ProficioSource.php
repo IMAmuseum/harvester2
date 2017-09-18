@@ -48,26 +48,4 @@ class ProficioSource extends QueriableSourceAbstract
             'raw' => $q->get(),
         ];
     }
-
-    /**
-     * Build the objects based on the parsing schemas
-     * @param $results   Array of raw query results to be built into objects
-     * @author Daniel Keller
-     */
-    public function buildObjects($results)
-    {
-        $objects = [];
-
-        if (empty($results)) {
-            return false;
-        }
-
-        // Build and format each object
-        foreach ($results as $result) {
-            $record = $this->transformer->transform($result, $this->config);
-            $objects[] = $record;
-        }
-
-        return $objects;
-    }
 }

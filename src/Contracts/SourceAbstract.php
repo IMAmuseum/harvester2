@@ -5,10 +5,6 @@ namespace Imamuseum\Harvester2\Contracts;
 use Imamuseum\Harvester2\Contracts\SourceInterface;
 use Imamuseum\Harvester2\Contracts\TransformerInterface;
 
-
-/**
- * This is a bit of a middle man
- */
 abstract class SourceAbstract implements SourceInterface
 {
     /**
@@ -60,5 +56,27 @@ abstract class SourceAbstract implements SourceInterface
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Build the objects using the given transformer
+     * @param $results   Array of raw object results to be built into objects
+     * @author Daniel Keller
+     */
+    public function buildObjects($results)
+    {
+        $objects = [];
+
+        if (empty($results)) {
+            return false;
+        }
+
+        // Build and format each object
+        foreach ($results as $result) {
+            $record = $this->transformer->transform($result, $this->config);
+            $objects[] = $record;
+        }
+
+        return $objects;
     }
 }

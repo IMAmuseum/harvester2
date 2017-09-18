@@ -49,7 +49,7 @@ class IndexUpdateObjects extends Job implements ShouldQueue
      */
     public function handle()
     {
-        logger("Index/Updateing Objects from ".$this->source_name.": ".$this->offset."\r");
+        logger("Index/Updating Objects from ".$this->source_name.": ".$this->offset."\r");
         $objects = $this->source->buildObjects($this->raw);
 
         // Insert object into store

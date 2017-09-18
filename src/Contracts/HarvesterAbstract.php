@@ -31,7 +31,7 @@ abstract class HarvesterAbstract implements HarvesterInterface
      * @param $id  object id to delete if old
      * @author Daniel Keller
      */
-    public function deleteOldObjects($source = null, $id = null)
+    public function deleteOldObjects(SourceInterface $source = null, $id = null)
     {
         // If source is provided delete from given source only
         $sources = $this->sources;
@@ -58,7 +58,7 @@ abstract class HarvesterAbstract implements HarvesterInterface
      * @param $only_recent  Only insert/update objects that have been changed recently
      * @author Daniel Keller
      */
-    public function updateObjects($source = null, $id = null, $only_recent = true)
+    public function updateObjects(SourceInterface $source = null, $id = null, $only_recent = true)
     {
         // If source is provided update from given source only
         $sources = $this->sources;
@@ -78,7 +78,7 @@ abstract class HarvesterAbstract implements HarvesterInterface
 
             // If only_recent is false or shouldParseAll returns true process all source results (ignore $since)
             $since = $this->config['since'];
-            if (!$only_recent || $source->shouldParseAll()) {
+            if (!$only_recent || $source->shouldUpdateAll()) {
                 $since = null;
             }
 

@@ -37,7 +37,7 @@ class ElasticSearchStore implements DocumentStoreInterface
      * Returns the store client
      *
      * TODO: Not sure if this is a good idea.
-     * Provides flexibitiy but will lead to poor practices
+     * Provides flexibitiy but could lead to poor practices
      *
      * @author Daniel Keller
      */
@@ -133,7 +133,7 @@ class ElasticSearchStore implements DocumentStoreInterface
         $elasticsearch = $this->build();
 
         if (!isset($object[$id_property])) {
-            throw new Exception('When inserting record into index: $index no property $id_property was found.');
+            throw new Exception('When inserting record into index: $index no property $id_property was found. '.var_dump($object));
         }
 
         $elasticsearch->update([
