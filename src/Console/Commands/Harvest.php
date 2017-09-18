@@ -19,7 +19,7 @@ class Harvest extends Command
     protected $signature = 'harvest
                             {--source=null : source from which to sync (if absent all sources will sync)}
                             {--id=null : The unique id of object from source data (requires --source).}
-                            {--recent=null : Only update recently changed records.}';
+                            {--recent=false : Only update recently changed records.}';
 
     /**
      * The console command description.
@@ -47,7 +47,7 @@ class Harvest extends Command
     {
         $source = $this->option('source') == 'null' ? null : $this->option('source');
         $id = $this->option('id') == 'null' ? null : $this->option('id');
-        $recent = $this->option('recent') == 'null' ? false : $this->option('recent');
+        $recent = $this->option('recent') == 'false' ? false : $this->option('recent');
 
         // Insure we have a source if id is provided
         if ($id && !$source) {
