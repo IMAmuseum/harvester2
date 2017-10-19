@@ -51,8 +51,7 @@ class PictionSource extends ApiSourceAbstract
 
         // Apply since if given
         if ($since) {
-            // DK TODO convert since to date dd-Mon-yyy (01-Aug-2017)
-            $since = Carbon::now()->subDays(-1 * $since);
+            $since = Carbon::now()->subDays($since);
             $date = $since->format('d-M-Y');
             $params['SEARCH'] .= ' ANY_DATE_UPDATED:>"$date"';
         }
