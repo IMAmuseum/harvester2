@@ -53,7 +53,7 @@ class PictionSource extends ApiSourceAbstract
         if ($since) {
             $since = Carbon::now()->subDays($since);
             $date = $since->format('d-M-Y');
-            $params['SEARCH'] .= ' ANY_DATE_UPDATED:>"$date"';
+            $params['SEARCH'] .= ' ANY_DATE_UPDATED:>"'.$date.'"';
         }
 
         // Apply id if given
