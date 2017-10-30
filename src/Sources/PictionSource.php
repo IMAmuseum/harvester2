@@ -55,9 +55,9 @@ class PictionSource extends ApiSourceAbstract
             $date = $since->format('d-M-Y');
 
             if (isset($params['SEARCH']) && !empty($params['SEARCH'])) {
-                $params['SEARCH'] .= ' AND ANY_DATE_UPDATED:>"$date"';
+                $params['SEARCH'] .= ' AND ANY_DATE_UPDATED:>"'.$date.'"';
             } else {
-                $params['SEARCH'] = 'ANY_DATE_UPDATED:>"$date"';
+                $params['SEARCH'] = 'ANY_DATE_UPDATED:>"'.$date.'"';
             }
         }
 
