@@ -128,14 +128,26 @@ class ElasticSearchStore implements DocumentStoreInterface
      * Index or Update an object in the given index
      * @author Daniel Keller
      */
-    public function indexOrUpdate($index, $type, $id_property, $object)
+    public function indexOrUpdate($index, $type, $id_property, $object, $delete_old = true)
     {
         $elasticsearch = $this->build();
 
         if (!isset($object[$id_property])) {
-            throw new Exception('When inserting record into index: $index no property $id_property was found. '.var_dump($object));
+            throw new Exception('When inserting record into index: $index no property $id_property was found.');
         }
 
+        // Remove old document.
+        // Slows sync but guarantees document is fully replaced
+        if ($delete_old) {
+            $elasticsearch->delete([
+                'index' => $index,
+                'type' => $type,
+                'id' => $object[$id_property],
+                'client' => [ 'ignore' => 404 ] // ignore if not found
+            ]);
+        }
+
+        // Add new document
         $elasticsearch->update([
             'index' => $index,
             'type' => $type,
