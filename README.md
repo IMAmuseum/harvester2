@@ -1,6 +1,8 @@
-##Harvester Package
+## Harvester Package
 
-###Composer Setup
+This is a large overhaul of the harvester. The focus of this project was to optimize the harvester to avoid extraneous querying and allow que-able processing.
+
+### Composer Setup
 ```json
     "require": {
         "imamuseum/harvester2": ""
